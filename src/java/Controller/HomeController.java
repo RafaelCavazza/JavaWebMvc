@@ -14,7 +14,7 @@ public class HomeController {
     public HomeController() {
     }
     
-    @RequestMapping("/Home/index.jsp")
+    @RequestMapping("/Home/index.htm")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception 
     {
         return new ModelAndView("/Home/index");
