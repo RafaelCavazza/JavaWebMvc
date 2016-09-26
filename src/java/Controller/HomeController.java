@@ -19,5 +19,4 @@ public class HomeController {
     {
         return new ModelAndView("/Home/index");
     }
-    
 }
