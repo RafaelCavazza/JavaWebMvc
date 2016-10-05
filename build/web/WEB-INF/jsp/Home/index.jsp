@@ -13,9 +13,9 @@
 
 <t:wrapper>
     <div> 
-    <ul>
-        ${text}
-    </ul>
-</div>
+        <ul>
+            ${text}
+        </ul>
+    </div>
 </t:wrapper>
     
