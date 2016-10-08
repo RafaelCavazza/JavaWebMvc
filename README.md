@@ -1,3 +1,9 @@
-# JavaWebMvc
+## Sinopse
+Aplicação Web contruida com a tecnologia Java utlizando o Spring Framework e a tecnologia JSP.
 
-Projeto criado com o propÃ³sito de explorar o ambiente de desenvolvimento java Web com framework Spring MVC e JSP.
+## Motivação
+Realização do Trabalho prático.
+
+## Nota
+O desenvolvimento de aplicações Web Java com a tecnologia JSP esté em desuso, este trabalho foi realizado com fim acadêmico para entendimento da tecnologia.
+
