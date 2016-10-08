@@ -25,4 +25,10 @@ public class HomeController {
     {
         return new ModelAndView("/Home/result");
     }
+    
+    @RequestMapping("/Home/welcome.htm")
+    public ModelAndView welcome()
+    {
+        return new ModelAndView("/Home/welcome");
+    }
 }
