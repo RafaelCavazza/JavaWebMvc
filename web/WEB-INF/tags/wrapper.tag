@@ -1,7 +1,5 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<!DOCTYPE html>
 <html lang="en"> 
 
 <head>
@@ -57,7 +55,7 @@
     <div class="container">
         
         <div id="body">
-            <jsp:doBody/>
+
         </div>
         
         <div class="row">
