@@ -55,7 +55,7 @@
     <div class="container">
         
         <div id="body">
-
+            <jsp:doBody/>
         </div>
         
         <div class="row">
