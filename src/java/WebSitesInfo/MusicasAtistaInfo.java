@@ -12,8 +12,7 @@ public class MusicasAtistaInfo {
     {
         nomeArtista = formatarNome(nomeArtista);
         Connect(site + nomeArtista);
-        getMusicas();
-        return null;
+        return getMusicas();
     }
     
     private ArrayList<String> getMusicas()

@@ -1,7 +1,7 @@
 package Database;
 
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,15 +9,26 @@ import java.sql.Statement;
 public class SqlServer {
 
     private final Connection conn;
+    
+    public SqlServer() throws SQLException{
 
-    public SqlServer() throws SQLException {
-        this.conn = DriverManager.getConnection("dbc:sqlserver://ec2-52-67-112-140.sa-east-1.compute.amazonaws.com:1433", "sa", "A1a2$bcde");
+        SQLServerDataSource ds = new SQLServerDataSource();
+	ds.setIntegratedSecurity(false);
+        ds.setPassword("A1a2$bcde");
+        ds.setUser("sa");
+	ds.setServerName("52.67.112.140");
+	ds.setPortNumber(1433); 
+	ds.setDatabaseName("JavaMVC");
+	conn = ds.getConnection();
+			  
+        //this.conn = DriverManager.getConnection("jdbc:sqlserver://52.67.112.140:1433;DatabaseName=JavaMVC", "sa", "A1a2$bcde");
     }
 
     public int BuscarIdArtista(String nome) {
         try (Statement stmt = conn.createStatement()) {
-            ResultSet resultado = stmt.executeQuery("SELECT Id FROM Artista WHERE Nome LIKE" + nome);
-            return resultado.getInt("Id");
+            ResultSet resultado = stmt.executeQuery("SELECT Id FROM Artista WHERE Nome LIKE '%" + nome + "%'");
+            resultado.next();
+            return resultado.getInt(1);
         } catch (SQLException e) {
             System.err.println(e);
             return 0;
@@ -26,7 +37,15 @@ public class SqlServer {
 
     public void GravarArtista(String nome) {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeQuery("INSERT INTO Artista(Nome) VALUES(" + nome + ")");
+            stmt.execute("INSERT INTO Artista(Nome) VALUES('" + nome + "')");
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+    
+    public void GravarMusica(String nomeMusica, int artistaId) {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("INSERT INTO Musica(NomeMusica,ArtistaId) VALUES('" + nomeMusica + "',"+ artistaId +")");
         } catch (SQLException e) {
             System.err.println(e);
         }
@@ -42,10 +61,17 @@ public class SqlServer {
 
     public void DeletarTodosArtistas() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeQuery("DELETE FROM Artista");
+            stmt.execute("DELETE FROM Artista");
         } catch (SQLException e) {
             System.err.println(e);
         }
     }
-
+    
+    public void DeletarTodosMusicas() {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("DELETE FROM Musica");
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
 }
