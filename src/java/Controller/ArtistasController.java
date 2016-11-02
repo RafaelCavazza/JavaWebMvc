@@ -37,8 +37,7 @@ public class ArtistasController {
            dataBase.GravarArtista(artistas.get(i));
            int id = dataBase.BuscarIdArtista(artistas.get(i));
            ArrayList<String> musicas = musicasAtistaInfo.getMusicasArtista(artistas.get(i));
-           for(int m =0; m<musicas.size(); m++)
-            dataBase.GravarMusica(musicas.get(m),id);
+           dataBase.GravarMusica(musicas,id);            
         }
         
         return null;

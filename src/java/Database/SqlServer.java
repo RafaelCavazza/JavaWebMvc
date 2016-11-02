@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class SqlServer {
 
@@ -46,6 +47,23 @@ public class SqlServer {
     public void GravarMusica(String nomeMusica, int artistaId) {
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("INSERT INTO Musica(NomeMusica,ArtistaId) VALUES('" + nomeMusica + "',"+ artistaId +")");
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+    
+    public void GravarMusica(ArrayList<String> nomeMusica, int artistaId) {
+        try (Statement stmt = conn.createStatement()) {
+            if(nomeMusica.isEmpty())
+                return;
+            String query = "INSERT INTO Musica(NomeMusica,ArtistaId) VALUES ";
+            for(int i=0; i< nomeMusica.size(); i++)
+            {
+                query +="('" + nomeMusica.get(i) + "',"+ artistaId +")";
+                if(i< nomeMusica.size()-1)
+                   query +=","; 
+            }
+            stmt.execute(query);
         } catch (SQLException e) {
             System.err.println(e);
         }
