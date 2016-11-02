@@ -57,6 +57,25 @@ public class SqlServer {
             return null;
         }
     }
+    
+    public ArrayList<String> BuscarMusicas(int artistaId) 
+    {
+        try (Statement stmt = conn.createStatement()) 
+        {
+            ResultSet resultado = stmt.executeQuery("SELECT * FROM Musica WHERE ArtistaId="+artistaId);
+            ArrayList<String> musicas = new ArrayList<>();
+            while(resultado.next())
+            {
+                musicas.add(resultado.getString("NomeMusica"));
+            }
+            
+            return musicas;
+        } 
+        catch (SQLException e) 
+        {
+            return null;
+        }
+    }
 
     public void GravarArtista(String nome) {
         try (Statement stmt = conn.createStatement()) {
