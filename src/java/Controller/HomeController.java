@@ -19,7 +19,7 @@ public class HomeController {
         ModelAndView result = new ModelAndView("/Home/index");
         iniciaDatabase();
         ArrayList<Artista> artistas = dataBase.BuscarArtistas();
-        result.addObject(artistas);
+        result.addObject("artistas",artistas);
         
         return result;
     }
