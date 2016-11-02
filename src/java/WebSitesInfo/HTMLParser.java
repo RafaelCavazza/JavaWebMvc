@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package WebSitesInfo;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
-/**
- *
- * @author rafael
- */
+
 public class HTMLParser {
     
     private Document doc;
@@ -22,8 +14,19 @@ public class HTMLParser {
         this.site = site;
     }
     
-    public void getContent()
+    public void Connect()
     {
+        try
+        {
+            doc = Jsoup.connect(site).get();
+        }
+        catch(Exception ex)
+        {
+        }
     }
-    
+       
+    public Elements getContent(String selector)
+    {
+        return doc.select(selector);
+    }
 }
