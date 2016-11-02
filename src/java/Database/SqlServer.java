@@ -44,6 +44,23 @@ public class SqlServer {
         }
     }
     
+    public void GravarArtista(ArrayList<String> nome) {
+        try (Statement stmt = conn.createStatement()) {
+            if(nome.isEmpty())
+                return;
+            String query = "INSERT INTO Artista(Nome) VALUES";
+            for(int i=0; i< nome.size(); i++)
+            {
+                query +="('" + nome.get(i) + "')";
+                if(i< nome.size()-1)
+                   query +=","; 
+            }
+            stmt.execute(query);
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+    
     public void GravarMusica(String nomeMusica, int artistaId) {
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("INSERT INTO Musica(NomeMusica,ArtistaId) VALUES('" + nomeMusica + "',"+ artistaId +")");

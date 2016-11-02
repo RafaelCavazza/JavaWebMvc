@@ -12,8 +12,8 @@
 
     <title>Blog Home - Start Bootstrap Template</title>
 
-    <link href="../../../JavaWebMvc/Public/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../JavaWebMvc/Public/css/blog-home.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../Public/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../Public/css/blog-home.css" rel="stylesheet" type="text/css"/>
 
 </head>
 
@@ -205,8 +205,8 @@
 
     </div>
 
-    <script src="../../../JavaWebMvc/Public/js/jquery.js" type="text/javascript"></script>
-    <script src="../../../JavaWebMvc/Public/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../../Public/js/jquery.js" type="text/javascript"></script>
+    <script src="../../../Public/js/bootstrap.min.js" type="text/javascript"></script>
 
 </body>
 
