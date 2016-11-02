@@ -35,6 +35,28 @@ public class SqlServer {
             return 0;
         }
     }
+    
+    public ArrayList<Artista> BuscarArtistas() 
+    {
+        try (Statement stmt = conn.createStatement()) 
+        {
+            ResultSet resultado = stmt.executeQuery("SELECT * FROM Artista");
+            ArrayList<Artista> artistas = new ArrayList<>();
+            while(resultado.next())
+            {
+                Artista a1 = new Artista();
+                a1.Id = resultado.getInt("Id");
+                a1.Nome = resultado.getString("Nome");
+                artistas.add(a1);
+            }
+            
+            return artistas;
+        } 
+        catch (SQLException e) 
+        {
+            return null;
+        }
+    }
 
     public void GravarArtista(String nome) {
         try (Statement stmt = conn.createStatement()) {
