@@ -1,6 +1,9 @@
 
 package Controller;
 
+import WebSitesInfo.ArtistaInfo;
+import WebSitesInfo.MusicasAtistaInfo;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,12 @@ public class HomeController {
     @RequestMapping("/Home/index.htm")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception 
     {
+        ArtistaInfo af = new ArtistaInfo();
+        ArrayList<String> arl = af.getArtistas();
+        
+        MusicasAtistaInfo maf = new MusicasAtistaInfo();
+        maf.getMusicasArtista(arl.get(0));
+        
         return new ModelAndView("/Home/index");
     }
     
