@@ -21,4 +21,9 @@ public class HTMLParser {
     {
         this.site = site;
     }
+    
+    public void getContent()
+    {
+    }
+    
 }
