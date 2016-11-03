@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -23,6 +24,18 @@ public class HomeController {
         
         return result;
     }
+    
+    @RequestMapping("/Home/Detalhes.htm")
+    public ModelAndView Detalhes(@RequestParam("id") int id)
+    { 
+        ModelAndView result = new ModelAndView("/Home/detalhes");
+        iniciaDatabase();
+        ArrayList<String> musicas = dataBase.BuscarMusicas(id);
+        result.addObject("musicas",musicas);
+        
+        return result;
+    }
+    
     
     private void iniciaDatabase()
     {

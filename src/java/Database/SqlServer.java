@@ -29,7 +29,7 @@ public class SqlServer {
         try (Statement stmt = conn.createStatement()) {
             ResultSet resultado = stmt.executeQuery("SELECT Id FROM Artista WHERE Nome LIKE '%" + nome + "%'");
             resultado.next();
-            return resultado.getInt(1);
+            return resultado.getInt(0);
         } catch (SQLException e) {
             System.err.println(e);
             return 0;
@@ -117,12 +117,12 @@ public class SqlServer {
             String query = "INSERT INTO Musica(NomeMusica,ArtistaId) VALUES ";
             for(int i=0; i< nomeMusica.size(); i++)
             {
-                query +="('" + nomeMusica.get(i) + "',"+ artistaId +")";
+                query +="('" + nomeMusica.get(i).replace('\'', '"') + "',"+ artistaId +")";
                 if(i< nomeMusica.size()-1)
                    query +=","; 
             }
             stmt.execute(query);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println(e);
         }
     }
