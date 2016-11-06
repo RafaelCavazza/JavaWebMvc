@@ -207,6 +207,21 @@
 
     <script src="../../../Public/js/jquery.js" type="text/javascript"></script>
     <script src="../../../Public/js/bootstrap.min.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+    
+        function mostraDetalhes(id)
+        {
+            $("#nomeArtista").html("Musicas: " + $("#"+id).html());
+            $("#detalhes").load("/Home/Detalhes.htm?id="+id);
+        }
+        
+        function atualizarDados()
+        {
+            //Faz um ajax nesse endereço "/Artistas/BuscaDados.htm" e recarrega a página quando acabar
+        }
+    </script>
+    
 
 </body>
 

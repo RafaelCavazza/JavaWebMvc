@@ -37,7 +37,6 @@ public class HomeController {
         return result;
     }
     
-    
     private void iniciaDatabase()
     {
         try{
