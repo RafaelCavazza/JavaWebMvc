@@ -27,7 +27,7 @@ public class ArtistasController {
     }
     
     @RequestMapping("/Artistas/BuscaDados.htm")
-    public ResponseEntity something(HttpServletResponse httpServletResponse) {
+    public ResponseEntity something() {
         iniciaDatabase();
         dataBase.DeletarTodosArtistas();
         dataBase.DeletarTodosMusicas();
@@ -40,7 +40,6 @@ public class ArtistasController {
            ArrayList<String> musicas = musicasAtistaInfo.getMusicasArtista(artistas.get(i));
            dataBase.GravarMusica(musicas,id);            
         }
-        httpServletResponse.setHeader("Location", projectUrl);
         return new ResponseEntity("", HttpStatus.OK);
     }
     
