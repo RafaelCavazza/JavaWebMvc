@@ -2,6 +2,7 @@ package Controller;
 
 import Database.Artista;
 import Database.SqlServer;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -40,10 +41,10 @@ public class HomeController {
     private void iniciaDatabase()
     {
         try{
-            dataBase = new SqlServer();
+            this.dataBase = new SqlServer();
         }
-        catch(Exception ex)
-        {
+        catch(SQLException ex)
+        {   
         }
     }
 }
