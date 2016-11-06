@@ -12,44 +12,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ArtistasController {
-    
+
     private ArtistaInfo artistaInfo = new ArtistaInfo();
     private MusicasAtistaInfo musicasAtistaInfo = new MusicasAtistaInfo();
     private SqlServer dataBase;
-    
+
     public ArtistasController() {
-        try{
+        try {
             dataBase = new SqlServer();
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
         }
     }
-    
+
     @RequestMapping("/Artistas/BuscaDados.htm")
     public ResponseEntity something() {
         iniciaDatabase();
         dataBase.DeletarTodosArtistas();
         dataBase.DeletarTodosMusicas();
-        
-        ArrayList<String> artistas = artistaInfo.getArtistas();   
+
+        ArrayList<String> artistas = artistaInfo.getArtistas();
         dataBase.GravarArtista(artistas);
-        for(int i=0; i<artistas.size(); i++)
-        {
-           int id = dataBase.BuscarIdArtista(artistas.get(i));
-           ArrayList<String> musicas = musicasAtistaInfo.getMusicasArtista(artistas.get(i));
-           dataBase.GravarMusica(musicas,id);            
+        for (int i = 0; i < artistas.size(); i++) {
+            int id = dataBase.BuscarIdArtista(artistas.get(i));
+            ArrayList<String> musicas = musicasAtistaInfo.getMusicasArtista(artistas.get(i));
+            dataBase.GravarMusica(musicas, id);
         }
         return new ResponseEntity("", HttpStatus.OK);
     }
-    
-    private void iniciaDatabase()
-    {
-        try{
+
+    private void iniciaDatabase() {
+        try {
             dataBase = new SqlServer();
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
         }
     }
 }

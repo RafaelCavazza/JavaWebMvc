@@ -5,30 +5,49 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <t:wrapper>
-    <div>    
-        <a onclick="atualizarDados()"> Reprocessar </a>
+    <div id="processarBtn">    
+        <a class="btn btn-primary" onclick="atualizarDados()"> 
+            <span class="glyphicon glyphicon-refresh"></span>
+            Reprocessar
+        </a>
     </div>
-    
-    <div class="col-md-6" style="border-style: solid;"> 
-        <h2> Artistas </h2>
-        <ul>
-            <c:forEach items="${artistas}" var="artista">
-                Nome: <c:out value="${artista.getNome()}"/><p>
-                Id: <c:out value="${artista.getId()}"/><p>
-                <li id="<c:out value="${artista.getId()}"/>" onclick="mostraDetalhes(this.id)">
-                    <c:out value="${artista.getNome()}"/>
-                </li>
-            </c:forEach>
-        </ul>
-    </div>
-    
-    <div class="col-md-6" style="border-style: solid;"> 
-        <div>
-            <h2 id="nomeArtista"> Musicas </h2>
-        </div>
-        <div id="detalhes">
-            
+
+    <div class="col-md-6 portfolio-item">
+        <div class="panel panel-default">
+            <div class="panel-heading"> Artistas </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <c:forEach items="${artistas}" var="artista">
+                        <a href="#" class="list-group-item" id="${artista.getId()}" onclick="mostraDetalhes(this.id)">
+                            <c:out value="${artista.getNome()}"/>
+                        </a>
+                    </c:forEach>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div class="col-md-6 portfolio-item">
+        <div class="panel panel-default">
+            <div class="panel-heading">Musicas</div>
+            <div class="panel-body" id="detalhes">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function mostraDetalhes(id)
+        {
+            $("#nomeArtista").html($("#" + id).html());
+            $("#detalhes").load("/Home/Detalhes.htm?id=" + id);
+        }
+
+        function atualizarDados()
+        {
+            $.get("/Artistas/BuscaDados.htm", function () {
+                location.reload();
+            });
+        }
+    </script>
 </t:wrapper>
-    
+

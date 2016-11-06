@@ -3,10 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div> 
-    <ul>
+    <ul class="list-group">
         <c:forEach items="${musicas}" var="musica">
-            Musica: <c:out value="${musica}"/><p>
+            <li class="list-group-item">
+                <c:out value="${musica}"/><p>
+            </li>
         </c:forEach>
     </ul>
 </div>
-    
+

@@ -10,18 +10,18 @@ import java.util.ArrayList;
 public class SqlServer {
 
     private final Connection conn;
-    
-    public SqlServer() throws SQLException{
+
+    public SqlServer() throws SQLException {
 
         SQLServerDataSource ds = new SQLServerDataSource();
-	ds.setIntegratedSecurity(false);
+        ds.setIntegratedSecurity(false);
         ds.setPassword("A1a2$bcde");
         ds.setUser("sa");
-	ds.setServerName("52.67.112.140");
-	ds.setPortNumber(1433); 
-	ds.setDatabaseName("JavaMVC");
-	conn = ds.getConnection();
-			  
+        ds.setServerName("52.67.112.140");
+        ds.setPortNumber(1433);
+        ds.setDatabaseName("JavaMVC");
+        conn = ds.getConnection();
+
         //this.conn = DriverManager.getConnection("jdbc:sqlserver://52.67.112.140:1433;DatabaseName=JavaMVC", "sa", "A1a2$bcde");
     }
 
@@ -35,44 +35,34 @@ public class SqlServer {
             return 0;
         }
     }
-    
-    public ArrayList<Artista> BuscarArtistas() 
-    {
-        try (Statement stmt = conn.createStatement()) 
-        {
+
+    public ArrayList<Artista> BuscarArtistas() {
+        try (Statement stmt = conn.createStatement()) {
             ResultSet resultado = stmt.executeQuery("SELECT * FROM Artista");
             ArrayList<Artista> artistas = new ArrayList<>();
-            while(resultado.next())
-            {
+            while (resultado.next()) {
                 Artista a1 = new Artista();
                 a1.Id = resultado.getInt("Id");
                 a1.Nome = resultado.getString("Nome");
                 artistas.add(a1);
             }
-            
+
             return artistas;
-        } 
-        catch (SQLException e) 
-        {
+        } catch (SQLException e) {
             return null;
         }
     }
-    
-    public ArrayList<String> BuscarMusicas(int artistaId) 
-    {
-        try (Statement stmt = conn.createStatement()) 
-        {
-            ResultSet resultado = stmt.executeQuery("SELECT * FROM Musica WHERE ArtistaId="+artistaId);
+
+    public ArrayList<String> BuscarMusicas(int artistaId) {
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet resultado = stmt.executeQuery("SELECT * FROM Musica WHERE ArtistaId=" + artistaId);
             ArrayList<String> musicas = new ArrayList<>();
-            while(resultado.next())
-            {
+            while (resultado.next()) {
                 musicas.add(resultado.getString("NomeMusica"));
             }
-            
+
             return musicas;
-        } 
-        catch (SQLException e) 
-        {
+        } catch (SQLException e) {
             return null;
         }
     }
@@ -84,42 +74,44 @@ public class SqlServer {
             System.err.println(e);
         }
     }
-    
+
     public void GravarArtista(ArrayList<String> nome) {
         try (Statement stmt = conn.createStatement()) {
-            if(nome.isEmpty())
+            if (nome.isEmpty()) {
                 return;
+            }
             String query = "INSERT INTO Artista(Nome) VALUES";
-            for(int i=0; i< nome.size(); i++)
-            {
-                query +="('" + nome.get(i) + "')";
-                if(i< nome.size()-1)
-                   query +=","; 
+            for (int i = 0; i < nome.size(); i++) {
+                query += "('" + nome.get(i) + "')";
+                if (i < nome.size() - 1) {
+                    query += ",";
+                }
             }
             stmt.execute(query);
         } catch (SQLException e) {
             System.err.println(e);
         }
     }
-    
+
     public void GravarMusica(String nomeMusica, int artistaId) {
         try (Statement stmt = conn.createStatement()) {
-            stmt.execute("INSERT INTO Musica(NomeMusica,ArtistaId) VALUES('" + nomeMusica + "',"+ artistaId +")");
+            stmt.execute("INSERT INTO Musica(NomeMusica,ArtistaId) VALUES('" + nomeMusica + "'," + artistaId + ")");
         } catch (SQLException e) {
             System.err.println(e);
         }
     }
-    
+
     public void GravarMusica(ArrayList<String> nomeMusica, int artistaId) {
         try (Statement stmt = conn.createStatement()) {
-            if(nomeMusica.isEmpty())
+            if (nomeMusica.isEmpty()) {
                 return;
+            }
             String query = "INSERT INTO Musica(NomeMusica,ArtistaId) VALUES ";
-            for(int i=0; i< nomeMusica.size(); i++)
-            {
-                query +="('" + nomeMusica.get(i).replace('\'', '"') + "',"+ artistaId +")";
-                if(i< nomeMusica.size()-1)
-                   query +=","; 
+            for (int i = 0; i < nomeMusica.size(); i++) {
+                query += "('" + nomeMusica.get(i).replace('\'', '"') + "'," + artistaId + ")";
+                if (i < nomeMusica.size() - 1) {
+                    query += ",";
+                }
             }
             stmt.execute(query);
         } catch (Exception e) {
@@ -142,7 +134,7 @@ public class SqlServer {
             System.err.println(e);
         }
     }
-    
+
     public void DeletarTodosMusicas() {
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("DELETE FROM Musica");

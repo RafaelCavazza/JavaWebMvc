@@ -12,38 +12,33 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
-    
+
     private SqlServer dataBase;
-    
+
     @RequestMapping("/Home/index.htm")
-    public ModelAndView index(HttpServletRequest request)
-    { 
+    public ModelAndView index(HttpServletRequest request) {
         ModelAndView result = new ModelAndView("/Home/index");
         iniciaDatabase();
         ArrayList<Artista> artistas = dataBase.BuscarArtistas();
-        result.addObject("artistas",artistas);
-        
+        result.addObject("artistas", artistas);
+
         return result;
     }
-    
+
     @RequestMapping("/Home/Detalhes.htm")
-    public ModelAndView Detalhes(@RequestParam("id") int id)
-    { 
+    public ModelAndView Detalhes(@RequestParam("id") int id) {
         ModelAndView result = new ModelAndView("/Home/detalhes");
         iniciaDatabase();
         ArrayList<String> musicas = dataBase.BuscarMusicas(id);
-        result.addObject("musicas",musicas);
-        
+        result.addObject("musicas", musicas);
+
         return result;
     }
-    
-    private void iniciaDatabase()
-    {
-        try{
+
+    private void iniciaDatabase() {
+        try {
             this.dataBase = new SqlServer();
-        }
-        catch(SQLException ex)
-        {   
+        } catch (SQLException ex) {
         }
     }
 }
