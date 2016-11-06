@@ -4,22 +4,29 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<% 
-    String text = "";
-    for(int i =0; i< 10; i++)
-    {
-        text += "<li> Exemplo de Código Gerado Dinamicamente!</li>";
-    }
-%>
-
 <t:wrapper>
-    <div> 
+    <div>    
+        <a onclick="atualizarDados()"> Reprocessar </a>
+    </div>
+    
+    <div class="col-md-6" style="border-style: solid;"> 
+        <h2> Artistas </h2>
         <ul>
             <c:forEach items="${artistas}" var="artista">
-                Nome <c:out value="${artista.getNome()}"/><p>
-                Id <c:out value="${artista.getId()}"/><p>
+                <li id="<c:out value="${artista.getId()}"/>" onclick="mostraDetalhes(this.id)">
+                    <c:out value="${artista.getNome()}"/>
+                </li>
             </c:forEach>
         </ul>
+    </div>
+    
+    <div class="col-md-6" style="border-style: solid;"> 
+        <div>
+            <h2 id="nomeArtista"> Musicas </h2>
+        </div>
+        <div id="detalhes">
+            
+        </div>
     </div>
 </t:wrapper>
     

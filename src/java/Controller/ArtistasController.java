@@ -4,6 +4,7 @@ import Database.SqlServer;
 import WebSitesInfo.ArtistaInfo;
 import WebSitesInfo.MusicasAtistaInfo;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class ArtistasController {
     }
     
     @RequestMapping("/Artistas/BuscaDados.htm")
-    public ResponseEntity something() {
+    public ResponseEntity something(HttpServletResponse httpServletResponse) {
         iniciaDatabase();
         dataBase.DeletarTodosArtistas();
         dataBase.DeletarTodosMusicas();
@@ -39,6 +40,7 @@ public class ArtistasController {
            ArrayList<String> musicas = musicasAtistaInfo.getMusicasArtista(artistas.get(i));
            dataBase.GravarMusica(musicas,id);            
         }
+        httpServletResponse.setHeader("Location", projectUrl);
         return new ResponseEntity("", HttpStatus.OK);
     }
     
