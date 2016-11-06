@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
+            <file>file:/home/welbert/Workspace/JavaWebMvc/web/WEB-INF/tags/wrapper.tag</file>
+            <file>file:/home/welbert/Workspace/JavaWebMvc/web/WEB-INF/jsp/Home/index.jsp</file>
+            <file>file:/home/welbert/Workspace/JavaWebMvc/web/WEB-INF/jsp/Home/detalhes.jsp</file>
             <file>file:/home/welbert/Workspace/JavaWebMvc/src/java/Database/SqlServer.java</file>
             <file>file:/home/welbert/Workspace/JavaWebMvc/src/java/Controller/HomeController.java</file>
-=======
-            <file>file:/home/rafael/NetBeansProjects/JavaWebMvc/web/WEB-INF/jsp/Home/index.jsp</file>
-            <file>file:/home/rafael/NetBeansProjects/JavaWebMvc/src/java/Database/SqlServer.java</file>
-            <file>file:/home/rafael/NetBeansProjects/JavaWebMvc/src/java/Controller/ArtistasController.java</file>
->>>>>>> ad2394e147740f99dcc2e80605a4bbd2c1b95f3f
         </group>
     </open-files>
 </project-private>
