@@ -60,7 +60,7 @@ public class MusicasAtistaInfo {
         {
             texto = texto.replace("--","-");
         }
-        return texto;
+        return texto.replaceAll("[-+.^:,]$#%*!+=<>","").replace("\"", "");
     }
 
     public String GetLetra(MusicaInfo musica) {
