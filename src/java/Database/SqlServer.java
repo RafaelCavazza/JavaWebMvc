@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SqlServer {
 
@@ -123,14 +124,20 @@ public class SqlServer {
             if (nomeMusica.isEmpty()) {
                 return;
             }
-            String query = "INSERT INTO Musica(NomeMusica,ArtistaId) VALUES ";
-            for (int i = 0; i < nomeMusica.size(); i++) {
-                query += "('" + nomeMusica.get(i).replace('\'', '"') + "'," + artistaId + ")";
-                if (i < nomeMusica.size() - 1) {
-                    query += ",";
+            
+            for (int k = 0; k < nomeMusica.size(); k+=1000) {
+                int limit = (k+999 > nomeMusica.size() ? nomeMusica.size() : k+999);
+                List<String> novaNomeMusica = nomeMusica.subList(k, limit);
+                String query = "INSERT INTO Musica(NomeMusica,ArtistaId) VALUES ";
+                for (int i = 0; i < novaNomeMusica.size(); i++) {
+                    query += "('" + novaNomeMusica.get(i).replace('\'', '"') + "'," + artistaId + ")";
+                    if (i < novaNomeMusica.size() - 1) {
+                        query += ",";
+                    }
                 }
+                stmt.execute(query);
             }
-            stmt.execute(query);
+            
         } catch (Exception e) {
             System.err.println(e);
         }
