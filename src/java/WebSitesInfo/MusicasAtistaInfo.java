@@ -11,8 +11,14 @@ public class MusicasAtistaInfo {
     public ArrayList<String> getMusicasArtista(String nomeArtista)
     {
         nomeArtista = formatarNome(nomeArtista);
-        Connect(site + nomeArtista);
-        return getMusicas();
+        if(Connect(site + nomeArtista))
+        {
+            return getMusicas();
+        }
+        else
+        {
+            return new ArrayList<>();
+        }
     }
     
     private ArrayList<String> getMusicas()
@@ -32,10 +38,10 @@ public class MusicasAtistaInfo {
         return ulTracks.select("li").select("a").select("span");
     }
     
-    private void Connect(String site)
+    private boolean Connect(String site)
     {
         htmlParser = new HTMLParser(site);
-        htmlParser.Connect();
+        return htmlParser.Connect();
     }
     
     private String formatarNome(String nomeArtista)

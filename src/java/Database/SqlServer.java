@@ -29,7 +29,7 @@ public class SqlServer {
         try (Statement stmt = conn.createStatement()) {
             ResultSet resultado = stmt.executeQuery("SELECT Id FROM Artista WHERE Nome LIKE '%" + nome + "%'");
             resultado.next();
-            return resultado.getInt(0);
+            return resultado.getInt("Id");
         } catch (SQLException e) {
             System.err.println(e);
             return 0;

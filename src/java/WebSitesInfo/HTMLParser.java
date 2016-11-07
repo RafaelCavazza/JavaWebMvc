@@ -14,14 +14,16 @@ public class HTMLParser {
         this.site = site;
     }
     
-    public void Connect()
+    public boolean Connect()
     {
         try
         {
             doc = Jsoup.connect(site).get();
+            return true;
         }
         catch(Exception ex)
         {
+            return false;
         }
     }
        
