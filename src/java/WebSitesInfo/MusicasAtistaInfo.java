@@ -1,11 +1,15 @@
 package WebSitesInfo;
 
+import Database.MusicaInfo;
+import java.text.Normalizer;
 import java.util.ArrayList;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class MusicasAtistaInfo {
     
     private String site = "https://www.vagalume.com.br/";
+    private String siteBusca = "https://www.vagalume.com.br/";
     private HTMLParser htmlParser;
     
     public ArrayList<String> getMusicasArtista(String nomeArtista)
@@ -46,21 +50,30 @@ public class MusicasAtistaInfo {
     
     private String formatarNome(String nomeArtista)
     {
-        String vogalA = "ÃãÂâÁáÀà";
-        String vogalE = "ẼẽÊêÉéÈè";
-        String vogalI = "ĨĩÎîÍíÌì";
-        String vogalO = "ÕõÔôÍíÌì";
-        String vogalU = "ŨũÛûÚúÙù";
-        String c = "Çç";
+        String convertedString = Normalizer.normalize(nomeArtista, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+        return remove(convertedString.replace(' ', '-').replace(',','-').replace('.','-'));
+    }
+    
+    public String remove(String texto) 
+    {
+        while(texto.contains("--"))
+        {
+            texto = texto.replace("--","-");
+        }
+        return texto;
+    }
+
+    public String GetLetra(MusicaInfo musica) {
+        String pesquisa = siteBusca + formatarNome(musica.NomeArtista) + "/" + formatarNome(musica.NomeMusica) + ".html";
+        pesquisa = pesquisa.toLowerCase();
+        if(!Connect(pesquisa))
+            return "";
         
-        nomeArtista = nomeArtista.replace(vogalA, "a");
-        nomeArtista = nomeArtista.replace(vogalE, "e");
-        nomeArtista = nomeArtista.replace(vogalI, "i");
-        nomeArtista = nomeArtista.replace(vogalO, "o");
-        nomeArtista = nomeArtista.replace(vogalU, "u");
-        nomeArtista = nomeArtista.replace(c, "c");
-        nomeArtista = nomeArtista.replace(" ", "-");
-        
-        return nomeArtista;
+        return GetLetra();
+    }
+    
+    private String GetLetra()
+    {
+        return htmlParser.getContent("#lyr_original").first().html();
     }
 }

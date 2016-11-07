@@ -4,7 +4,6 @@ import Database.SqlServer;
 import WebSitesInfo.ArtistaInfo;
 import WebSitesInfo.MusicasAtistaInfo;
 import java.util.ArrayList;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

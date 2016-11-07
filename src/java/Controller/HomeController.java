@@ -1,13 +1,19 @@
 package Controller;
 
 import Database.Artista;
+import Database.MusicaInfo;
 import Database.SqlServer;
+import WebSitesInfo.MusicasAtistaInfo;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -29,10 +35,20 @@ public class HomeController {
     public ModelAndView Detalhes(@RequestParam("id") int id) {
         ModelAndView result = new ModelAndView("/Home/detalhes");
         iniciaDatabase();
-        ArrayList<String> musicas = dataBase.BuscarMusicas(id);
+        ArrayList<MusicaInfo> musicas = dataBase.BuscarMusicas(id);
         result.addObject("musicas", musicas);
-
         return result;
+    }
+    
+    @RequestMapping("/Home/Letra.htm")
+    @ResponseBody
+    public String Letra(@RequestParam("id") int id, HttpServletResponse response) throws UnsupportedEncodingException {
+        iniciaDatabase();
+        MusicaInfo musica = dataBase.MusicaInfo(id);
+        MusicasAtistaInfo musicasAtistaInfo = new MusicasAtistaInfo();
+        
+        response.setContentType("text/html;charset=UTF-8");
+        return  musicasAtistaInfo.GetLetra(musica);
     }
 
     private void iniciaDatabase() {

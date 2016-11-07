@@ -53,15 +53,32 @@ public class SqlServer {
         }
     }
 
-    public ArrayList<String> BuscarMusicas(int artistaId) {
+    public ArrayList<MusicaInfo> BuscarMusicas(int artistaId) {
         try (Statement stmt = conn.createStatement()) {
-            ResultSet resultado = stmt.executeQuery("SELECT * FROM Musica WHERE ArtistaId=" + artistaId);
-            ArrayList<String> musicas = new ArrayList<>();
+            ResultSet resultado = stmt.executeQuery("SELECT Musica.Id IdMusica, Musica.NomeMusica, Artista.Nome NomeArtista FROM Musica JOIN Artista ON Artista.Id = Musica.ArtistaId WHERE Musica.ArtistaId = " + artistaId);
+            ArrayList<MusicaInfo> musicas = new ArrayList<>();
             while (resultado.next()) {
-                musicas.add(resultado.getString("NomeMusica"));
+                MusicaInfo mf = new MusicaInfo();
+                mf.NomeMusica = resultado.getString("NomeMusica");
+                mf.NomeArtista = resultado.getString("NomeArtista");
+                mf.IdMusica = resultado.getInt("IdMusica");
+                musicas.add(mf);
             }
 
             return musicas;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+    
+    public MusicaInfo MusicaInfo(int musicaId) {
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet resultado = stmt.executeQuery("SELECT Musica.NomeMusica, Artista.Nome NomeArtista FROM Musica JOIN Artista ON Artista.Id = Musica.ArtistaId WHERE Musica.Id = " + musicaId);
+            resultado.next();
+            MusicaInfo mf = new MusicaInfo();
+            mf.NomeMusica = resultado.getString("NomeMusica");
+            mf.NomeArtista = resultado.getString("NomeArtista");
+            return mf;
         } catch (SQLException e) {
             return null;
         }
